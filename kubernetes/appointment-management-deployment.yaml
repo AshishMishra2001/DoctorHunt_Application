@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appointment-management-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: appointment-management
+  template:
+    metadata:
+      labels:
+        app: appointment-management
+    spec:
+      containers:
+        - name: appointment-management
+          image: gcr.io/doctorhunt-application-456305/appointment-management:latest  # Correct image name
+
+          env:
+            - name: DB_HOST
+              value: "mysql-service"
+            - name: DB_USER
+              value: "root"
+            - name: DB_PASSWORD
+              value: "yourpassword"
+            - name: DB_NAME
+              value: "doctorhunt"
+          ports:
+            - containerPort: 5003
